@@ -1824,6 +1824,9 @@ enum ssl_hs_wait_t ssl_server_handshake(SSL_HANDSHAKE *hs) {
         break;
       case state12_read_client_hello:
         ret = do_read_client_hello(hs);
+        if (hs->ssl->sni_only) {
+            return ssl_hs_ok;
+        }
         break;
       case state12_read_client_hello_after_ech:
         ret = do_read_client_hello_after_ech(hs);

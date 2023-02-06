@@ -839,6 +839,9 @@ int SSL_do_handshake(SSL *ssl) {
 
   bool early_return = false;
   int ret = ssl_run_handshake(hs, &early_return);
+  if (ssl->sni_only) {
+    return ret;
+  }
   ssl_do_info_callback(
       ssl, ssl->server ? SSL_CB_ACCEPT_EXIT : SSL_CB_CONNECT_EXIT, ret);
   if (ret <= 0) {
@@ -2012,6 +2015,10 @@ int SSL_set_strict_cipher_list(SSL *ssl, const char *str) {
   }
   return ssl_create_cipher_list(&ssl->config->cipher_list, str,
                                 true /* strict */);
+}
+
+void SSL_set_sni_only(SSL *ssl) {
+    ssl->sni_only = true;
 }
 
 const char *SSL_get_servername(const SSL *ssl, const int type) {

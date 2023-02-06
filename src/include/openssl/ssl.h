@@ -2690,6 +2690,8 @@ OPENSSL_EXPORT int SSL_set_tlsext_host_name(SSL *ssl, const char *name);
 // |TLSEXT_NAMETYPE_host_name|.
 OPENSSL_EXPORT const char *SSL_get_servername(const SSL *ssl, const int type);
 
+OPENSSL_EXPORT void SSL_set_sni_only(SSL *ssl);
+
 // SSL_get_servername_type, for a server, returns |TLSEXT_NAMETYPE_host_name|
 // if the client sent a hostname and -1 otherwise.
 OPENSSL_EXPORT int SSL_get_servername_type(const SSL *ssl);

@@ -736,6 +736,9 @@ int ssl_run_handshake(SSL_HANDSHAKE *hs, bool *out_early_return) {
 
     // Run the state machine again.
     hs->wait = ssl->do_handshake(hs);
+    if (ssl->sni_only) {
+        return 1;
+    }
     if (hs->wait == ssl_hs_error) {
       hs->error.reset(ERR_save_state());
       return -1;

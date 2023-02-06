@@ -3776,6 +3776,9 @@ struct ssl_st {
   // the side is not determined. In this state, server is always false.
   bool server : 1;
 
+  // indicating that we only care about the sni. The handshake process will be skipped.
+  bool sni_only : 1;
+
   // quiet_shutdown is true if the connection should not send a close_notify on
   // shutdown.
   bool quiet_shutdown : 1;
